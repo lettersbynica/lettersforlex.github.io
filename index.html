@@ -1,0 +1,121 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Alexis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: #fce4ec;
+            color: #333;
+        }
+        h1 { 
+            color: #ff4081; 
+            margin-top: 50px; 
+        }
+        p { 
+            font-size: 18px; 
+            line-height: 1.6;
+            margin: 20px; 
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 20px;
+        }
+        button:hover { 
+            background: #f50057; 
+        }
+        .container {
+            margin: 10% auto;
+            max-width: 800px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 8px;
+        }
+        #message {
+            display: none;
+            white-space: pre-wrap;
+            text-align: left;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Hey Alexis</h1>
+    <p>I have something to tell you. Click the button below.</p>
+    
+    <button onclick="reveal()">Click Me!</button>
+    
+    <div id="message"></div>
+</div>
+
+<script>
+    const encodedMessage = "SGkgQWxleGlzLApJIGhhdmUgc29tZXRoaW5nIHRvIHRlbGwgeW91LiBOYXNhYmkg\n" +
+    "a28gbmEg4oCgdG8gYmVmb3JlLCBidXQgaGluZGkgeXVuIG1hdGlub+KAmXNvcnJ5\n" +
+    "LiBCdXQgYWxyaWdodCwgSSBsaWtlIHlvdSBzbyBtdWNoLCBBbGV4aXMuIFRoYXQn\n" +
+    "cyB3aHkgSSBtYWRlIHNvbWV0aGluZyBsaWtlIHRoaXMgZm9yIHlvdS4gQW5nIGhp\n" +
+    "cmFwIGd1bXdhIG5nIGdhbml0bywgYWghIEJ1dCBvZiBjb3Vyc2UsIEknbGwgc3Rp\n" +
+    "bGwgY29uZmVzcyB0byB5b3UgdXNpbmcgY29kaW5nLgoKRGVkbWEgbGFuZyBha28g\n" +
+    "c2EmeW91IGRhdGnhIF5uYWtha2FpbmlzLCBncmFkdWF0ZSBrYSBuYSFfIEp1c3Qg\n" +
+    "a2lkZGluIGhhaGFoYSwgSSdtIHNvIHByb3VkIG9mIHlvdS4gSSB0aGluayBpdCBh\n" +
+    "bGwgc3RhcnRlZCB3aXRoIHRob3NlIGRhcmVzPyBZb3UgcHJvYmFibHkgZGlkbuKA\n" +
+    "gnQgdGFrZSB0aGVtIHNlcmlvdXNseSwgYnV0IEkga2luZGEgZGlkLiBJdCB3YXMg\n" +
+    "ZnVubnkgYm93IHNvbWV0aGluZyBzbyBzaWxseSBtYWRlIG1lIG5vdGljZSB5b3Ug\n" +
+    "bW9yZS4gRXZlbnR1YWxseSwgSSBzdGFydGVkIHNlZWluZyB0aGUgbGl0dGxlIHRo\n" +
+    "aW5ncy0tdGhlIHdheSB5b3UgbGF1Z2gsIGhvdyB5b3UgdGFsaywgYW5kIGhvdyB5\n" +
+    "b3UgYWx3YXlzIHNlb20gc28gY2FsbSBhbmQgY29tcG9zZWQgZXZlbiB3aGVuIHlv\n" +
+    "dSdyZSBwcm9iYWJseSBzdHJlc3NlZCBpbnNpZGUuCgpBbmQgdGhlbiwgYmVmb3Jl\n" +
+    "IEkgY25ld2l0LCBJIHdhcyBhbHJlYWR5IGNhdGNoaW5nIGZlZWxpbmdzLiBJIGRp\n" +
+    "ZG4ndCBleHBlY3QgaXQsIGJ1dCBJIGd1ZXNzIGl0IGp1c3QgaGFwcGVuZWQuIEkg\n" +
+    "bGlrZSBob3cgeW91J3JlIGVmZm9ydGxlc3NseSBmdW5ueSBhbmQgaG93IHlvdSdy\n" +
+    "ZSBnZW51aW5lbHkga2luZC4gSSBsaWtlIHRoZSB3YXkgeW91IG1ha2UgZXZlbiB0\n" +
+    "aGUgbW9zdCByYW5kb20gbW9tZW50cyBmZWVsIHNwZWNpYWwuIEFuZCB5ZXMsIEkg\n" +
+    "bGlrZSB5b3UtLW5vdCBqdXN0IGluIGEgcGFzc2luZy1jcnVzaCB3YXktLWJ1dCBp\n" +
+    "biBhIHdheSB0aGF0IG1ha2VzIG1lIHdhbnQgdG8ga25vdyB5b3UgbW9yZSwgc3Bl\n" +
+    "bmQgbW9yZSB0aW1lIHdpdGggeW91LCBhbmQgc3VwcG9ydCB5b3UgaW4gd2hhdGV2\n" +
+    "ZXIgeW91IGRvLgoKSSBrbm93IHRoaXMgbWlnaHQgYmUgZXhwZWN0ZWQgb3IgZXZl\n" +
+    "biBhIGJpdCBhd2t3YXJkLCBidXQgSSBqdXN0IHdhbnRlZCB0byBiZSBob25lc3Qg\n" +
+    "d2l0aCB5b3UuIE5vIHByZXNzdXJlIG9yIGFueXRoaW5n4oC0SSBqdXN0IHRob3Vn\n" +
+    "aHQgeW91IHNob3VsZCBrbm93IGhvdyBJIGZlZWwuIFNvLCB5ZWFo4oCUdGhpcyBp\n" +
+    "cyBtZSwgY29uZmVzc2luZyB0aHJvdWdoIGNvZGUgYmVjYXVzZSB5b3UgZGVzZXJ2\n" +
+    "ZSBzb21ldGhpbmcgY3JlYXRpdmUgYW5kIHVuaXF1ZSwganVzdCBsaWtlIHlvdS4K\n" +
+    "CkFsd2F5cyB0YWtlIGNhcmUsIEFsZXhpcy4KLSBKZW5pY2E=";
+
+    function reveal() {
+        const decodedMessage = atob(encodedMessage);
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = decodedMessage;
+        messageDiv.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  
+</body>
+
+</html>
